@@ -2,6 +2,7 @@ import React from "react";
 import { useKindeAuth } from "@kinde/expo";
 import { Pressable, View, Text } from "react-native";
 import { KindeAuthProvider } from "@kinde/expo";
+import { useAutoDiscovery } from "expo-auth-session";
 
 export default function App() {
   return (
@@ -18,12 +19,15 @@ export default function App() {
 function Authentication() {
   const { login, register, logout, isAuthenticated } = useKindeAuth();
 
+  const discovery = useAutoDiscovery("https://csnapit-seahorse.eu.kinde.com");
+  console.log("Kinde Discovery Document:", discovery);
+
   const handleSignUp = async () => {
     const response = await register({});
     if (response.success) {
       console.log("User Registered:", response);
     } else {
-      console.error("Signup Failed:", response.errorMessage);
+      console.error("Signup Failed:", response);
     }
   };
 
@@ -32,7 +36,7 @@ function Authentication() {
     if (response.success) {
       console.log("User Logged In:", response);
     } else {
-      console.error("Login Failed:", response.errorMessage);
+      console.error("Login Failed:", response);
     }
   };
 
