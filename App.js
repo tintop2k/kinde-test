@@ -7,9 +7,9 @@ import { useAutoDiscovery } from "expo-auth-session";
 export default function App() {
   return (
     <KindeAuthProvider config={{
-      domain: "csnapit-seahorse.eu.kinde.com",
-      clientId: "98d0959ecd8b4157bca6970f4e7b20f2",
-      scopes: "openid profile email offline",
+      domain: 'https://auth.csnapit.com',
+      clientId: '98d0959ecd8b4157bca6970f4e7b20f2',
+      scopes: 'openid profile email offline',
     }}>
       <Authentication />
     </KindeAuthProvider>
@@ -19,37 +19,37 @@ export default function App() {
 function Authentication() {
   const { login, register, logout, isAuthenticated } = useKindeAuth();
 
-  const discovery = useAutoDiscovery("https://csnapit-seahorse.eu.kinde.com");
-  console.log("Kinde Discovery Document:", discovery);
+  const discovery = useAutoDiscovery('https://auth.csnapit.com');
+  console.log('Kinde Discovery Document:', discovery);
 
   const handleSignUp = async () => {
     const response = await register({});
     if (response.success) {
-      console.log("User Registered:", response);
+      console.log('User Registered:', response);
     } else {
-      console.error("Signup Failed:", response);
+      console.error('Signup Failed:', response);
     }
   };
 
   const handleSignIn = async () => {
     const response = await login({});
     if (response.success) {
-      console.log("User Logged In:", response);
+      console.log('User Logged In:', response);
     } else {
-      console.error("Login Failed:", response);
+      console.error('Login Failed:', response);
     }
   };
 
   const handleLogout = async () => {
     await logout({ revokeToken: true });
-    console.log("User Logged Out");
+    console.log('User Logged Out');
   };
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       {!isAuthenticated ? (
         <>
-          <Pressable onPress={handleSignIn} style={{ marginBottom: 10 }}>
+          <Pressable onPress={handleSignIn} style={{ marginBottom: 20 }}>
             <Text>Sign In</Text>
           </Pressable>
           <Pressable onPress={handleSignUp}>
